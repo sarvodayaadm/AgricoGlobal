@@ -1,6 +1,6 @@
-# AgriCo Global - Import Export Business Website
+# Agrico Global - Import Export Business Website
 
-A modern, responsive, and user-friendly website for AgriCo Global, showcasing premium agricultural products including spices, powders, seeds, and pulses.
+A modern, responsive, and user-friendly website for Agrico Global, showcasing premium agricultural products including spices, powders, seeds, and pulses.
 
 ## Features
 
@@ -217,10 +217,10 @@ For further customization or technical support, consider hiring a web developer 
 
 ## License
 
-This website template is created for AgriCo Global. Feel free to modify and use it for your business.
+This website template is created for Agrico Global. Feel free to modify and use it for your business.
 
 ---
 
-**AgriCo Global** - Your Trusted Partner for Premium Agricultural Products Worldwide
+**Agrico Global** - Your Trusted Partner for Premium Agricultural Products Worldwide
 
 For questions or support, contact: supriyamote15@gmail.com
