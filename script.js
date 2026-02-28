@@ -234,7 +234,7 @@ if (contactForm) {
         const message = document.getElementById('message').value;
 
         // Simple validation
-        if (!name || !email || !message) {
+        if (!name || !email || !message || !product || !quantity) {
             showFormMessage('Please fill in all required fields', 'error');
             return;
         }
@@ -246,13 +246,27 @@ if (contactForm) {
             return;
         }
 
-        // Simulate form submission
+        // Prepare WhatsApp message
+        const whatsappMessage = `Hello Agrico Global,\n\nI'm interested in your products.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nProduct: ${product}\nQuantity: ${quantity}\n\nMessage: ${message}`;
+        const whatsappUrl = `https://wa.me/918408967567?text=${encodeURIComponent(whatsappMessage)}`;
+
+        // Show sending message
         showFormMessage('Sending your enquiry...', 'loading');
 
         setTimeout(() => {
-            showFormMessage('Thank you! Your enquiry has been sent successfully. We will contact you soon.', 'success');
+            showFormMessage('✓ Your enquiry has been recorded! Opening WhatsApp...', 'success');
+            
+            // Open WhatsApp with pre-filled message
+            window.open(whatsappUrl, '_blank');
+            
+            // Reset form
             contactForm.reset();
-        }, 1500);
+            
+            // Close message after 3 seconds
+            setTimeout(() => {
+                if (formMessage) formMessage.classList.remove('show');
+            }, 3000);
+        }, 800);
     });
 }
 
@@ -265,7 +279,9 @@ function showFormMessage(message, type) {
 
     if (type !== 'loading') {
         setTimeout(() => {
-            formMessage.classList.remove('show');
+            if (formMessage.classList.contains('show')) {
+                formMessage.classList.remove('show');
+            }
         }, 5000);
     }
 }
