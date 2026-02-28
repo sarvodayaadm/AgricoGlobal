@@ -378,4 +378,143 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// ===== PREMIUM CAROUSEL FUNCTIONALITY =====
+class PremiumCarousel {
+    constructor() {
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.indicators = document.querySelectorAll('.carousel-indicator');
+        this.prevBtn = document.querySelector('.carousel-btn-prev');
+        this.nextBtn = document.querySelector('.carousel-btn-next');
+        this.currentSlide = 0;
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 5000; // 5 seconds per slide
+
+        if (this.slides.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        // Set up event listeners
+        this.prevBtn?.addEventListener('click', () => this.previousSlide());
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+
+        // Indicator click events
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        // Pause on hover, resume on leave
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer?.addEventListener('mouseenter', () => this.pauseAutoPlay());
+        carouselContainer?.addEventListener('mouseleave', () => this.startAutoPlay());
+
+        // Touch/swipe support
+        this.setupSwipeSupport();
+
+        // Start auto-play
+        this.startAutoPlay();
+    }
+
+    goToSlide(index) {
+        // Remove active class from current slide and indicator
+        this.slides[this.currentSlide].classList.remove('active');
+        this.slides[this.currentSlide].classList.add('prev');
+        this.indicators[this.currentSlide]?.classList.remove('active');
+
+        // Update current slide
+        this.currentSlide = index;
+
+        // Add active class to new slide and indicator
+        this.slides.forEach(slide => slide.classList.remove('prev'));
+        this.slides[this.currentSlide].classList.add('active');
+        this.indicators[this.currentSlide]?.classList.add('active');
+
+        // Reset auto-play timer
+        this.resetAutoPlay();
+    }
+
+    nextSlide() {
+        const next = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(next);
+    }
+
+    previousSlide() {
+        const prev = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        this.goToSlide(prev);
+    }
+
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoPlayDelay);
+    }
+
+    pauseAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+
+    resetAutoPlay() {
+        this.pauseAutoPlay();
+        this.startAutoPlay();
+    }
+
+    setupSwipeSupport() {
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (!carouselContainer) return;
+
+        let startX = 0;
+        let endX = 0;
+
+        carouselContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carouselContainer.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carouselContainer.addEventListener('touchend', () => {
+            const difference = startX - endX;
+            const threshold = 50; // Minimum swipe distance
+
+            if (Math.abs(difference) > threshold) {
+                if (difference > 0) {
+                    // Swiped left - go to next slide
+                    this.nextSlide();
+                } else {
+                    // Swiped right - go to previous slide
+                    this.previousSlide();
+                }
+            }
+        });
+    }
+}
+
+// Initialize carousel when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = new PremiumCarousel();
+});
+
+// Keyboard navigation for carousel
+document.addEventListener('keydown', (e) => {
+    const carouselSection = document.querySelector('.carousel-section');
+    if (!carouselSection) return;
+
+    const rect = carouselSection.getBoundingClientRect();
+    const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
+
+    if (isInView) {
+        if (e.key === 'ArrowLeft') {
+            document.querySelector('.carousel-btn-prev')?.click();
+        } else if (e.key === 'ArrowRight') {
+            document.querySelector('.carousel-btn-next')?.click();
+        }
+    }
+});
+
 console.log('Agrico Global - Premium Website Loaded Successfully!');
+
