@@ -627,6 +627,11 @@ body {
     transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.4s;
 }
 
+.carousel-slide.active .carousel-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
 .carousel-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.8rem;
