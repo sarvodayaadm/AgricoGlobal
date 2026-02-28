@@ -3,82 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Agrico Global - Premium Import Export of Agricultural Products, Spices, Seeds, and Powders">
-    <title>Agrico Global - Premium Agricultural Products Import Export</title>
+    <meta name="description" content="Agrico Global - Flavor Beyond Borders. Premium Agricultural Products for Farmers and Global Traders">
+    <title>Agrico Global | Flavor Beyond Borders</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-wrapper">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Background Circle -->
-                                <circle cx="100" cy="100" r="95" fill="#2c5f2d" opacity="0.1" stroke="#2c5f2d" stroke-width="2"/>
-                                
-                                <!-- Leaf 1 (Left) -->
-                                <path d="M 60 120 Q 50 100 60 60 Q 70 80 60 120" fill="#2c5f2d" opacity="0.8"/>
-                                <path d="M 60 60 Q 65 80 60 120" stroke="#97cc04" stroke-width="1.5" fill="none"/>
-                                
-                                <!-- Leaf 2 (Center - Main) -->
-                                <path d="M 100 140 Q 85 110 100 40 Q 115 110 100 140" fill="#2c5f2d"/>
-                                <path d="M 100 40 Q 105 85 100 140" stroke="#97cc04" stroke-width="2" fill="none"/>
-                                
-                                <!-- Leaf 3 (Right) -->
-                                <path d="M 140 120 Q 150 100 140 60 Q 130 80 140 120" fill="#2c5f2d" opacity="0.8"/>
-                                <path d="M 140 60 Q 135 80 140 120" stroke="#97cc04" stroke-width="1.5" fill="none"/>
-                                
-                                <!-- Agricultural elements - small sprout details -->
-                                <circle cx="95" cy="130" r="3" fill="#97cc04"/>
-                                <circle cx="105" cy="130" r="3" fill="#97cc04"/>
-                                
-                                <!-- Text: AG for Agrico -->
-                                <text x="100" y="155" font-size="24" font-weight="bold" text-anchor="middle" fill="#2c5f2d" font-family="Arial, sans-serif">AG</text>
-                                
-                                <!-- Decorative bottom line -->
-                                <line x1="70" y1="168" x2="130" y2="168" stroke="#97cc04" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <div class="logo-text">
-                            <h1>Agrico Global</h1>
-                            <p class="tagline">Premium Agricultural Products</p>
-                        </div>
-                    </div>
-                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <ul class="nav-menu" id="navMenu">
-                        <li><a href="#home" class="nav-link active">Home</a></li>
-                        <li><a href="#about" class="nav-link">About Us</a></li>
-                        <li><a href="#products" class="nav-link">Products</a></li>
-                        <li><a href="#contact" class="nav-link">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home" style="background: linear-gradient(135deg, rgba(44, 95, 45, 0.9), rgba(151, 204, 4, 0.8)), url('https://images.pexels.com/photos-26124588/spices-herbs-agricultural-crop.jpeg?w=1920&h=1080&fit=crop') center/cover;">
-        <div class="hero-overlay"></div>
+    <!-- Premium Navigation Bar -->
+    <nav class="navbar sticky-nav">
         <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title">Welcome to Agrico Global</h2>
-                <p class="hero-subtitle">Your Trusted Partner for Premium Agricultural Products Worldwide</p>
-                <p class="hero-description">We specialize in exporting high-quality spices, powders, seeds, and pulses to markets around the globe</p>
-                <div class="hero-buttons">
-                    <a href="#products" class="btn btn-primary">Explore Products</a>
-                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            <div class="nav-wrapper">
+                <div class="nav-logo">
+                    <img src="images/agrico-logo.png" alt="Agrico Global" class="logo-img" style="height: 45px;">
+                    <div class="logo-text">
+                        <h2>AGRICO GLOBAL</h2>
+                        <p>Flavor Beyond Borders</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#why-agrico" class="nav-link">Why Us</a></li>
+                    <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#contact" class="nav-link contact-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Effect -->
+    <section class="hero premium-hero" id="home">
+        <div class="hero-background">
+            <div class="hero-3d-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <div class="particles-container" id="particlesContainer"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content premium-hero-content">
+                <div class="hero-logo-3d">
+                    <img src="images/agrico-logo.png" alt="Agrico Global" class="hero-logo-img" style="max-width: 300px; margin-bottom: 30px; animation: float 3s ease-in-out infinite;">
+                </div>
+                <h1 class="hero-main-title">AGRICO GLOBAL</h1>
+                <h2 class="hero-tagline">Flavor Beyond Borders</h2>
+                <p class="hero-subtitle">Connecting Premium Agricultural Products From Farms to Global Tables</p>
+                <p class="hero-description">Supporting Farmers • Serving the World • Building Futures</p>
+                <div class="hero-buttons-premium">
+                    <button class="btn btn-primary premium-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+                        <span>Explore Products</span>
+                        <i class="fas fa-leaf"></i>
+                    </button>
+                    <button class="btn btn-secondary premium-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                        <span>Get in Touch</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Why Agrico Section -->
+    <section class="why-agrico" id="why-agrico">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Agrico Global?</h2>
+                <p>Trusted Partner for Farmers & Global Traders</p>
+            </div>
+            <div class="why-features-grid">
+                <div class="why-card" style="--delay: 0s">
+                    <div class="why-card-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Fair Pricing</h3>
+                    <p>Direct farmer partnerships ensure competitive pricing and fair value for agricultural excellence.</p>
+                </div>
+                <div class="why-card" style="--delay: 0.15s">
+                    <div class="why-card-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certified Quality</h3>
+                    <p>International certifications and rigorous testing for every batch of products.</p>
+                </div>
+                <div class="why-card" style="--delay: 0.3s">
+                    <div class="why-card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Reach</h3>
+                    <p>Exporting to 50+ countries with reliable logistics and timely delivery.</p>
+                </div>
+                <div class="why-card" style="--delay: 0.45s">
+                    <div class="why-card-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainable Farming</h3>
+                    <p>Promoting organic and sustainable practices protecting our environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Enhanced Design -->
     <section class="about" id="about">
         <div class="container">
             <div class="section-header">

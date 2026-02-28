@@ -1,23 +1,32 @@
+// ===== AGRICO GLOBAL - ENHANCED JAVASCRIPT =====
+// 3D Effects, Animations, and Interactive Features
+
 // ===== DOM Elements =====
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 const scrollToTopBtn = document.getElementById('scrollToTop');
-const enquiryForm = document.getElementById('enquiryForm');
+const navbar = document.querySelector('.navbar');
+const contactForm = document.getElementById('enquiryForm');
 const formMessage = document.getElementById('formMessage');
 
 // ===== Mobile Menu Toggle =====
-mobileMenuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    const icon = mobileMenuToggle.querySelector('i');
-    if (navMenu.classList.contains('active')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-    } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-    }
-});
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const spans = mobileMenuToggle.querySelectorAll('span');
+        spans.forEach((span, index) => {
+            if (navMenu.classList.contains('active')) {
+                if (index === 0) spans[0].style.transform = 'rotate(45deg) translateY(10px)';
+                if (index === 1) spans[1].style.opacity = '0';
+                if (index === 2) spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
+            } else {
+                span.style.transform = 'none';
+                spans[1].style.opacity = '1';
+            }
+        });
+    });
+}
 
 // ===== Smooth Scrolling for Navigation Links =====
 navLinks.forEach(link => {
@@ -38,9 +47,8 @@ navLinks.forEach(link => {
 
             // Close mobile menu after clicking
             navMenu.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+            const spans = mobileMenuToggle.querySelectorAll('span');
+            spans.forEach(span => span.style.transform = 'none');
 
             // Update active link
             navLinks.forEach(navLink => navLink.classList.remove('active'));
@@ -49,27 +57,43 @@ navLinks.forEach(link => {
     });
 });
 
-// ===== Scroll to Top Button =====
+// ===== Sticky Navigation with Scroll Effect =====
 window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Sticky navbar scroll detection
+    if (navbar && scrollTop > 50) {
+        navbar.classList.add('scroll-active');
+    } else if (navbar) {
+        navbar.classList.remove('scroll-active');
+    }
+
+    // Update active nav link based on scroll position
+    updateActiveNavLink();
+
+    // Scroll to top button visibility
+    if (scrollTop > 300) {
         scrollToTopBtn.classList.add('show');
     } else {
         scrollToTopBtn.classList.remove('show');
     }
 
-    // Update active navigation based on scroll position
-    updateActiveNav();
+    // 3D Parallax effect on hero
+    applyParallaxEffect();
 });
 
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+// ===== Scroll to Top =====
+if (scrollToTopBtn) {
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
-});
+}
 
-// ===== Update Active Navigation Based on Scroll =====
-function updateActiveNav() {
+// ===== Update Active Navigation Link =====
+function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const scrollPosition = window.pageYOffset + 100;
 
@@ -81,181 +105,261 @@ function updateActiveNav() {
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             navLinks.forEach(link => link.classList.remove('active'));
-            if (navLink) {
-                navLink.classList.add('active');
-            }
+            if (navLink) navLink.classList.add('active');
         }
     });
 }
 
-// ===== Form Submission Handler =====
-enquiryForm.addEventListener('submit', (e) => {
-    // Get form data for validation
-    const formData = new FormData(enquiryForm);
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
+// ===== Parallax Effect =====
+function applyParallaxEffect() {
+    const heroSection = document.querySelector('.premium-hero');
+    if (!heroSection) return;
+
+    const scrollTop = window.pageYOffset;
+    const elemOffset = heroSection.offsetTop;
+    const distance = scrollTop - elemOffset;
+
+    const shapes = document.querySelectorAll('.shape');
+    shapes.forEach((shape, index) => {
+        const speed = (index + 1) * 0.5;
+        if (distance > -window.innerHeight) {
+            shape.style.transform = `translateY(${distance * speed}px)`;
+        }
+    });
+}
+
+// ===== 3D Hover Effects on Cards =====
+const productCards = document.querySelectorAll('[data-3d]');
+productCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX = (y - rect.height / 2) / 10;
+        const rotateY = (rect.width / 2 - x) / 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     });
 
-    // Validate form
-    if (!validateForm(data)) {
-        e.preventDefault();
-        return;
-    }
-
-    // For Netlify Forms, we let the form submit naturally
-    // Netlify will handle the submission and redirect
-    console.log('Form submitted with data:', data);
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+    });
 });
 
-// ===== Form Validation =====
-function validateForm(data) {
-    // Check required fields
-    if (!data.name || data.name.trim() === '') {
-        showFormError('Please enter your name');
-        return false;
+// ===== Particle Animation =====
+function createParticles() {
+    const particlesContainer = document.getElementById('particlesContainer');
+    if (!particlesContainer) return;
+
+    const particleCount = 30;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 4 + 2}px;
+            height: ${Math.random() * 4 + 2}px;
+            background: rgba(151, 204, 4, ${Math.random() * 0.6 + 0.2});
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: float-particle ${Math.random() * 3 + 2}s infinite ease-in-out;
+            pointer-events: none;
+        `;
+        particlesContainer.appendChild(particle);
     }
 
-    if (!data.email || data.email.trim() === '') {
-        showFormError('Please enter your email address');
-        return false;
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showFormError('Please enter a valid email address');
-        return false;
-    }
-
-    if (!data.phone || data.phone.trim() === '') {
-        showFormError('Please enter your phone number');
-        return false;
-    }
-
-    // Validate phone format (basic validation)
-    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
-    if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
-        showFormError('Please enter a valid phone number');
-        return false;
-    }
-
-    if (!data.message || data.message.trim() === '') {
-        showFormError('Please enter your message');
-        return false;
-    }
-
-    return true;
+    // Add animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(${Math.random() * 50 - 25}px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
-// ===== Show Form Error =====
-function showFormError(message) {
-    formMessage.textContent = message;
-    formMessage.className = 'form-message error';
-    
-    setTimeout(() => {
-        formMessage.className = 'form-message';
-        formMessage.textContent = '';
-    }, 4000);
-}
+// Initialize particles on page load
+window.addEventListener('load', createParticles);
 
-// ===== Product Card Animation on Scroll =====
-function animateOnScroll() {
-    const productCards = document.querySelectorAll('.product-card');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+// ===== Product Filter Functionality =====
+const filterBtns = document.querySelectorAll('.filter-btn');
+const productCards2 = document.querySelectorAll('.product-card');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-filter');
+
+        // Filter products
+        productCards2.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.animation = 'slideUp 0.6s ease-out';
+                }, 10);
+            } else {
+                card.style.display = 'none';
             }
         });
-    }, {
-        threshold: 0.1
     });
-
-    productCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
-    });
-}
-
-// ===== Initialize Animations =====
-window.addEventListener('load', () => {
-    animateOnScroll();
 });
 
-// ===== Add to/Enquire Now Buttons Handler =====
-const productButtons = document.querySelectorAll('.product-btn');
-
-productButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+// ===== Form Submission =====
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Get product name from the card
-        const productCard = button.closest('.product-card');
-        const productName = productCard.querySelector('.product-name').textContent;
-        
-        // Scroll to contact form
-        const contactSection = document.querySelector('#contact');
-        const headerOffset = 80;
-        const elementPosition = contactSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const company = document.getElementById('company').value;
+        const product = document.getElementById('product').value;
+        const quantity = document.getElementById('quantity').value;
+        const message = document.getElementById('message').value;
 
-        // Pre-fill the product field in the form
+        // Simple validation
+        if (!name || !email || !message) {
+            showFormMessage('Please fill in all required fields', 'error');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showFormMessage('Please enter a valid email address', 'error');
+            return;
+        }
+
+        // Simulate form submission
+        showFormMessage('Sending your enquiry...', 'loading');
+
         setTimeout(() => {
-            const productSelect = document.getElementById('product');
-            // Find and select the matching option
-            for (let i = 0; i < productSelect.options.length; i++) {
-                if (productSelect.options[i].text.includes(productName) || 
-                    productName.includes(productSelect.options[i].text.split('(')[0].trim())) {
-                    productSelect.selectedIndex = i;
-                    // Highlight the select field briefly
-                    productSelect.style.border = '2px solid #97cc04';
-                    setTimeout(() => {
-                        productSelect.style.border = '';
-                    }, 2000);
-                    break;
-                }
-            }
-        }, 800);
+            showFormMessage('Thank you! Your enquiry has been sent successfully. We will contact you soon.', 'success');
+            contactForm.reset();
+        }, 1500);
     });
+}
+
+// ===== Form Message Display =====
+function showFormMessage(message, type) {
+    if (!formMessage) return;
+
+    formMessage.textContent = message;
+    formMessage.className = `form-message ${type} show`;
+
+    if (type !== 'loading') {
+        setTimeout(() => {
+            formMessage.classList.remove('show');
+        }, 5000);
+    }
+}
+
+// ===== Select Product Function =====
+function selectProduct(productName) {
+    const productSelect = document.getElementById('product');
+    if (productSelect) {
+        productSelect.value = productName;
+    }
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== Intersection Observer for Animations =====
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animation = 'slideUp 0.6s ease-out forwards';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe elements
+document.querySelectorAll('.why-card, .product-card, .contact-card').forEach(el => {
+    observer.observe(el);
 });
 
-// ===== Header Shadow on Scroll =====
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.pageYOffset > 50) {
-        header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-    } else {
-        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+// ===== Smooth Page Load Animation =====
+window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+});
+
+document.body.style.opacity = '0';
+document.body.style.transition = 'opacity 0.5s ease';
+window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+});
+
+// ===== Add some keyboard navigation =====
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
     }
 });
 
-// ===== Prevent Form Resubmission on Page Refresh =====
-if (window.history.replaceState) {
-    window.history.replaceState(null, null, window.location.href);
-}
+// ===== Add ripple effect to buttons =====
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
 
-// ===== Add Hover Effect to Social Icons =====
-const socialIcons = document.querySelectorAll('.social-icons a, .footer-social a');
-socialIcons.forEach(icon => {
-    icon.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px) rotate(360deg)';
-    });
-    
-    icon.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) rotate(0deg)';
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+            animation: ripple-animation 0.6s ease-out;
+        `;
+
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
     });
 });
 
-// ===== Console Welcome Message =====
-console.log('%c Welcome to AgriCo Global! ', 'background: #2c5f2d; color: #fff; font-size: 16px; padding: 10px;');
-console.log('%c Your trusted partner for premium agricultural products worldwide ', 'color: #97cc04; font-size: 12px;');
+// Add ripple animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple-animation {
+        from {
+            transform: scale(0);
+            opacity: 1;
+        }
+        to {
+            transform: scale(1);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+console.log('Agrico Global - Premium Website Loaded Successfully!');
