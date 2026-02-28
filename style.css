@@ -575,84 +575,113 @@ body {
 
 .btn-enquire {
     width: 100%;
-    background: linear-gradient(145deg, #8B5FBF, #6B2D8F);
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.1) 100%),
+        linear-gradient(135deg, #9B6FCF 0%, #7B3D9F 50%, #6B2D8F 100%);
     color: var(--white);
     border: none;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 0.8px;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    box-shadow: 
-        0 8px 20px rgba(107, 45, 143, 0.35),
-        0 4px 8px rgba(0, 0, 0, 0.2),
-        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-        inset 0 2px 4px rgba(255, 255, 255, 0.15);
     transform-style: preserve-3d;
-    transform: perspective(1000px) translateZ(0);
+    transform: perspective(1200px) translateZ(0) rotateX(0deg);
+    border: 2px solid rgba(255,255,255,0.1);
+    /* Material Design Elevation Level 6 */
+    box-shadow: 
+        0 0 0 1px rgba(107, 45, 143, 0.1),
+        0 3px 3px -2px rgba(107, 45, 143, 0.2),
+        0 3px 4px 0 rgba(107, 45, 143, 0.14),
+        0 1px 8px 0 rgba(107, 45, 143, 0.12),
+        0 8px 16px -4px rgba(107, 45, 143, 0.4),
+        inset 0 2px 6px rgba(255, 255, 255, 0.25),
+        inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+/* Material surface highlight */
 .btn-enquire::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        135deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.3) 45%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0.3) 55%,
-        transparent 100%
-    );
-    opacity: 0;
-    transition: all 0.6s ease;
-    transform: translateX(-100%) translateY(-100%);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+    border-radius: 16px 16px 0 0;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
+/* Material depth layer */
 .btn-enquire::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #6B2D8F, #8B5FBF, #6B2D8F);
-    border-radius: 0 0 12px 12px;
-    transform: translateZ(-5px);
+    inset: -6px;
+    background: linear-gradient(135deg, #8B5FBF, #6B2D8F);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateZ(-8px);
 }
 
 .btn-enquire:hover {
-    transform: perspective(1000px) translateY(-8px) translateZ(20px) rotateX(10deg);
+    transform: perspective(1200px) translateY(-12px) translateZ(30px) rotateX(8deg) scale(1.02);
+    border-color: rgba(255,255,255,0.2);
+    /* Material Design Elevation Level 12 */
     box-shadow: 
-        0 20px 40px rgba(107, 45, 143, 0.45),
-        0 10px 20px rgba(0, 0, 0, 0.25),
-        inset 0 -3px 10px rgba(0, 0, 0, 0.25),
-        inset 0 3px 6px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(145deg, #9B6FCF, #7B3D9F);
+        0 0 0 1px rgba(107, 45, 143, 0.15),
+        0 7px 8px -4px rgba(107, 45, 143, 0.3),
+        0 12px 17px 2px rgba(107, 45, 143, 0.2),
+        0 5px 22px 4px rgba(107, 45, 143, 0.18),
+        0 20px 40px -8px rgba(107, 45, 143, 0.5),
+        inset 0 3px 8px rgba(255, 255, 255, 0.3),
+        inset 0 -5px 15px rgba(0, 0, 0, 0.35);
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.15) 100%),
+        linear-gradient(135deg, #AB7FDF 0%, #8B4DAF 50%, #7B3D9F 100%);
 }
 
 .btn-enquire:hover::before {
-    opacity: 1;
-    transform: translateX(100%) translateY(100%);
+    opacity: 0.8;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+}
+
+.btn-enquire:hover::after {
+    opacity: 0.8;
+    filter: blur(12px);
+    transform: translateZ(-12px) scale(1.1);
 }
 
 .btn-enquire:active {
-    transform: perspective(1000px) translateY(-4px) translateZ(10px) rotateX(5deg);
-    box-shadow: 
-        0 12px 25px rgba(107, 45, 143, 0.4),
-        0 6px 12px rgba(0, 0, 0, 0.2),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.15);
+    transform: perspective(1200px) translateY(-4px) translateZ(15px) rotateX(4deg) scale(0.98);
     transition: all 0.1s ease;
+    /* Material Design Elevation Level 2 */
+    box-shadow: 
+        0 0 0 1px rgba(107, 45, 143, 0.08),
+        0 1px 2px -1px rgba(107, 45, 143, 0.15),
+        0 1px 3px 0 rgba(107, 45, 143, 0.1),
+        0 1px 4px 0 rgba(107, 45, 143, 0.08),
+        0 4px 8px -2px rgba(107, 45, 143, 0.3),
+        inset 0 1px 4px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.btn-enquire:active::after {
+    opacity: 0.4;
+    filter: blur(6px);
+    transform: translateZ(-6px) scale(0.95);
 }
 
 /* ===== BUTTONS ===== */
