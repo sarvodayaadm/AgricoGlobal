@@ -28,7 +28,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
     color: var(--text-dark);
     background: var(--white);
     line-height: 1.7;
@@ -380,23 +380,25 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transform: translateX(100%) scale(0.9);
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateX(100%) scale(0.95) rotateY(15deg);
+    transition: opacity 1s cubic-bezier(0.33, 1, 0.68, 1),
+                transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
     transform-style: preserve-3d;
     display: flex;
     align-items: center;
     justify-content: center;
+    will-change: transform, opacity;
 }
 
 .carousel-slide.active {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(0) scale(1) rotateY(0deg);
     z-index: 2;
 }
 
 .carousel-slide.prev {
     opacity: 0;
-    transform: translateX(-100%) scale(0.9);
+    transform: translateX(-100%) scale(0.95) rotateY(-15deg);
     z-index: 1;
 }
 
@@ -405,6 +407,17 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.carousel-slide.active img {
+    transform: scale(1.05);
+    animation: slowZoom 8s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+    from { transform: scale(1.05); }
+    to { transform: scale(1.1); }
 }
 
 .carousel-product-grid {
@@ -456,37 +469,62 @@ body {
     text-align: center;
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.8) 0%,
-        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.5) 60%,
         transparent 100%
     );
-    transform: translateY(20px);
+    transform: translateY(40px) scale(0.95);
     opacity: 0;
-    transition: all 0.6s ease 0.3s;
+    transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.4s;
 }
 
 .carousel-slide.active .carousel-content {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
 }
 
 .carousel-title {
-    font-size: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
     font-weight: 900;
     color: var(--white);
-    margin-bottom: 15px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    letter-spacing: 1px;
+    margin-bottom: 20px;
     text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    position: relative;
+    text-shadow: 
+        0 1px 0 #ccc,
+        0 2px 0 #c9c9c9,
+        0 3px 0 #bbb,
+        0 4px 0 #b9b9b9,
+        0 5px 0 #aaa,
+        0 6px 1px rgba(0,0,0,.1),
+        0 0 5px rgba(0,0,0,.1),
+        0 1px 3px rgba(0,0,0,.3),
+        0 3px 5px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.25),
+        0 10px 20px rgba(0,0,0,.2),
+        0 20px 40px rgba(0,0,0,.15);
+    transform: translateZ(50px);
+    animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateZ(50px) translateY(0); }
+    50% { transform: translateZ(50px) translateY(-10px); }
 }
 
 .carousel-text {
-    font-size: 1.3rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.95);
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    line-height: 1.6;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.6);
+    line-height: 1.7;
+    letter-spacing: 0.5px;
 }
 
 /* Carousel Navigation Buttons */
@@ -590,11 +628,20 @@ body {
     }
 
     .carousel-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        letter-spacing: 1.5px;
+        text-shadow: 
+            0 1px 0 #bbb,
+            0 2px 0 #aaa,
+            0 3px 0 #999,
+            0 4px 5px rgba(0,0,0,.15),
+            0 8px 15px rgba(0,0,0,.2),
+            0 15px 30px rgba(0,0,0,.15);
     }
 
     .carousel-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        max-width: 90%;
     }
 
     .carousel-content {
@@ -631,11 +678,19 @@ body {
     }
 
     .carousel-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        text-shadow: 
+            0 1px 0 #aaa,
+            0 2px 0 #999,
+            0 3px 5px rgba(0,0,0,.2),
+            0 6px 12px rgba(0,0,0,.2),
+            0 12px 25px rgba(0,0,0,.15);
     }
 
     .carousel-text {
-        font-size: 0.95rem;
+        font-size: 1rem;
+        max-width: 95%;
     }
 
     .carousel-product-grid {
