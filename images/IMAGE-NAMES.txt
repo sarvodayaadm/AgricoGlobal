@@ -1,0 +1,26 @@
+PRODUCT IMAGE FILE NAMES
+========================
+
+Place your product images in this folder with these exact names:
+
+1. moringa-powder.jpg
+2. onion-powder.jpg
+3. neem-powder.jpg
+4. pulses.jpg
+5. kadhipatta-powder.jpg
+6. ginger-powder.jpg
+7. turmeric-powder.jpg
+8. garlic-powder.jpg
+9. red-chilli-powder.jpg
+10. chilli-flakes.jpg
+11. raw-corn-popcorn.jpg
+12. sunflower-seeds.jpg
+13. pumpkin-seeds.jpg
+14. watermelon-seeds.jpg
+15. tamarind.jpg
+
+NOTES:
+- You can use .jpg, .jpeg, or .png formats
+- Recommended size: 400x300 pixels (or 4:3 ratio)
+- Optimize images for web to keep file sizes small
+- Use high-quality images for best appearance
