@@ -128,7 +128,7 @@ body {
 }
 
 .logo-text h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, var(--purple-main) 0%, #8B4DAF 50%, var(--purple-main) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -946,7 +946,7 @@ body {
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 3rem;
     font-weight: 900;
     background: linear-gradient(135deg, var(--purple-main) 0%, var(--primary-green) 100%);
@@ -1060,7 +1060,7 @@ body {
 }
 
 .about-info h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.8rem;
     font-weight: 800;
     color: var(--text-dark);
